@@ -4,4 +4,7 @@ from django.contrib import admin
 from project.models import *
 
 admin.site.register(Vacancy)
-admin.site.register(Valute)
+admin.site.register(Salary_vac)
+admin.site.register(OnYear)
+admin.site.register(City)
+
