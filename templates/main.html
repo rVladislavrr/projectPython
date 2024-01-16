@@ -1,0 +1,75 @@
+{% load static  %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <a href="#" id="scrollToTopButton">&#9650;</a>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn">&times;</a>
+        <a href="{% url 'home' %} ">Главная страница</a>
+        <a href="{% url 'vostr' %}">Востребованность</a>
+        <a href="{% url 'geo' %}">География</a>
+        <a href="#">Навыки</a>
+        <a href="#">Последние вакансии</a>
+    </div>
+    <main id='main'>
+        <div style="display: flex;">
+            <span class='openbtn'>&#9776;</span>
+            <h1 style="margin: 20px auto; font-size: 35px;text-decoration: underline;">{% block title %}Заголовок{% endblock %}</h1>
+        </div>
+    {% block main %}
+        <h2 class = 'h2Text'>Кто такой Full stack разработчик?</h2>
+        <section class='part_one'>
+            <div>
+                <p class="text">
+                    Фулл стек разработчик - это специалист, который обладает широким спектром навыков и знаний в области
+                    разработки веб-приложений. Они могут работать как с клиентской, так и с серверной частью приложений,
+                    что позволяет им создавать полноценные веб-приложения от начала до конца. Фулл стек разработчики
+                    обладают глубоким пониманием того, как взаимодействуют фронтенд и бэкенд, что делает их ценными
+                    участниками команды разработки.
+                </p>
+                <p class="text">Основная особенность фулл стек разработчика заключается в их способности к адаптации и
+                    универсальности. Они могут легко переключаться между различными технологиями и языками
+                    программирования, а также быстро осваивать новые инструменты и фреймворки. Это позволяет им
+                    эффективно решать широкий спектр задач и быть гибкими в работе над проектами.</p>
+            </div>
+            <a href=""><img src="{% static 'img/F-B.jpg' %}" width="768px" height="512px" alt="Fullstack_devoloper" style="padding-top: 25px;
+            margin-right: 30px;"></a>
+        </section>
+        <h2  class = "h2Text" >Чем еще Full stack разработчик?</h2>
+        <section class="part_two" id="additional-content">
+            <a href=""><img src="{% static 'img/F-B2.jpg' %}" width="791px" height="458px" alt="Fullstack_devoloper" style="padding-top: 25px;
+            "></a>
+            <div>
+                <p class="text">Кроме того, фулл стек разработчики обладают навыками командной работы и коммуникации,
+                    что делает их ценными участниками любой разработочной команды. Они способны эффективно
+                    взаимодействовать с дизайнерами, менеджерами проектов, другими разработчиками и заказчиками, что
+                    помогает создавать успешные проекты</p>
+                <p class="text"> Разработчики обладают знаниями и опытом работы с различными технологиями и языками
+                    программирования, такими как HTML, CSS, JavaScript для фронтенда, а также Node.js, Python, Ruby, PHP
+                    для бэкенда. Они также могут иметь опыт работы с фреймворками и библиотеками, такими как React,
+                    Angular, Vue.js для фронтенда, и Express, Django, Ruby on Rails, Laravel для бэкенда.</p>
+            </div>
+        </section>
+    {% endblock %}
+        <section id='last'>
+
+            <p class='last'><a href="{% block a %}{% url 'vostr' %}{% endblock %}">{% block aName %}Востребованность{% endblock %} &#10148;</a></p>
+
+        </section>
+    </main>
+    <footer>
+        <h2 style="margin-left: auto;
+        padding-right: 100px; ">Лавров Владислав Алексанрович</h2>
+    </footer>
+</body>
+<script src="{% static 'js/script.js'%}"></script>
+
+</html>
