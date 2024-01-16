@@ -62,5 +62,10 @@ def reqvest():
 
 
 def index_page(request):
-    ctx = reqvest()
-    return render(request, 'home_page.html', context=ctx)
+    # ctx = reqvest()
+    return render(request, 'main.html' )
+
+def page_2(request):
+    return render(request, 'home_page.html' )
+def page_3(request):
+    return render(request,'main_temp.html')

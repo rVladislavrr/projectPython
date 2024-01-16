@@ -1,10 +1,146 @@
-h1{
-    color: black;
+body {
+    background-color: rgb(24, 24, 24);
+    color: rgb(209, 209, 209);
 }
-h2{
-    color:red;
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
 }
-li{
-    padding-top: 20px;
-    margin: 0;
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.openbtn {
+    font-size: 30px;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.active {
+    width: 250px;
+}
+
+.part_one {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px;
+    margin-left: 100px;
+    margin-right: 100px;
+    padding: 30px;
+    border: 3px #f1f1f1 solid;
+    border-radius: 30px;
+}
+
+.part_two {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px;
+    margin-left: 100px;
+    margin-right: 100px;
+    padding: 30px;
+    border: 3px #f1f1f1 solid;
+    border-radius: 30px;
+}
+
+
+.part_one .text {
+    margin-left: 30px;
+
+}
+
+.part_two .text {
+    margin-left: 20px;
+}
+
+
+
+.text {
+    width: 800px;
+    font-size: 24px;
+    line-height: 160%;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    border: 3px #f1f1f1 solid;
+    border-radius: 25px;
+    margin: 0 100px;
+}
+
+#additional-content {
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+#last {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 100px;
+    margin-right: 100px;
+    border-radius: 30px;
+}
+
+.last {
+    padding: 15px;
+    margin-top: 5px;
+    border-radius: 25px;
+    margin-left: auto;
+    font-size: 24px;
+    line-height: 160%;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(209, 209, 209);
+}
+
+
+#scrollToTopButton {
+    display: none;
+    position: fixed;
+    bottom: 50px;
+    left: 30px;
+    font-size: 24px;
+    background-color: black;
+    color: rgb(209, 209, 209);
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.h2Text{
+    margin-left: 100px;
 }
