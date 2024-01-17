@@ -22,7 +22,7 @@
     <main id='main'>
         <div style="display: flex;">
             <span class='openbtn'>&#9776;</span>
-            <h1 style="margin: 20px auto; font-size: 35px;text-decoration: underline;">{% block title %}Заголовок{% endblock %}</h1>
+            <h1 style="margin: 20px auto; font-size: 35px; border-bottom: 3px solid currentColor;">{% block title %}Заголовок{% endblock %}</h1>
         </div>
     {% block main %}
         <h2 class = 'h2Text'>Кто такой Full stack разработчик?</h2>
@@ -59,17 +59,22 @@
             </div>
         </section>
     {% endblock %}
-        <section id='last'>
+    {% block last %}
+        <div id='last'>
 
-            <p class='last'><a href="{% block a %}{% url 'vostr' %}{% endblock %}">{% block aName %}Востребованность{% endblock %} &#10148;</a></p>
+            <p class='last'><a href="{% block a %}{% url 'vostr' %}{% endblock %}">{% block aName %}Востребованность{% endblock%} &#10148;</a></p>
 
-        </section>
+        </div>
+    {% endblock %}
     </main>
-    <footer>
+    <footer style="margin-top: 15px">
         <h2 style="margin-left: auto;
         padding-right: 100px; ">Лавров Владислав Алексанрович</h2>
+        <h2 style="margin-left: auto;
+        padding-right: 100px; ">РИ-220935</h2>
     </footer>
 </body>
 <script src="{% static 'js/script.js'%}"></script>
-
+{% block script %}
+{% endblock %}
 </html>

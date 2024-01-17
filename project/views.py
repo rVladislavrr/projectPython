@@ -1,6 +1,7 @@
 # Create your views here.
 from django.shortcuts import render
 import requests
+from .models import OnYear
 from datetime import datetime
 from bs4 import BeautifulSoup
 
@@ -61,11 +62,23 @@ def reqvest():
     return dict_
 
 
+def year_salar(dict_):
+    items = OnYear.objects.all()
+    for i in range(len(items)):
+        items[i].salary_avg = round(items[i].salary_avg, 2)
+        items[i].salary_avg_for_vac = round(items[i].salary_avg_for_vac, 2)
+    dict_['items'] = items
+    return dict_
+
 def index_page(request):
-    # ctx = reqvest()
-    return render(request, 'main.html' )
+    return render(request, 'main.html')
+
 
 def page_2(request):
-    return render(request, 'home_page.html' )
+    dict_ = {}
+    dict_ = year_salar(dict_)
+    return render(request, 'home_page.html', context=dict_)
+
+
 def page_3(request):
-    return render(request,'main_temp.html')
+    return render(request, 'main_temp.html')
