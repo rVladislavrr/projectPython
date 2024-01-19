@@ -10,6 +10,24 @@ def run():
     thread = Thread(target=process_vacancies)
     thread.start()
 
+def process_vacancies():
+    df_currency = pd.read_csv('csv/currency.csv', index_col='date')
+    csv_merged = pd.read_csv('csv/vacancies.csv')
+
+    vacancies_data = convert_and_format_data(csv_merged, df_currency)
+    t = time.time()
+    with connections['default'].cursor() as cursor:
+        with transaction.atomic():
+            for index, row in vacancies_data.iterrows():
+                print(time.time()-t, index)
+                cursor.execute(
+                """
+                INSERT INTO salary_vac (name, salary_avg, area_name, published_at)
+                VALUES (%s, %s, %s, %s)
+                """,
+                [row['name'], row['salary'], row['area_name'], row['published_at']]
+                )
+
 def convert_currency(vacancy_row, exchange_rates):
     if vacancy_row["salary_currency"] != "RUR" and not pd.isna(vacancy_row["salary"]):
         published_at = vacancy_row["published_at"].normalize().replace(day=1).tz_localize(None)
@@ -33,22 +51,5 @@ def convert_and_format_data(vacancies_data, exchange_rates):
     vacancies_data = vacancies_data[["name", "salary", "area_name", "published_at"]]
     return vacancies_data
 
-def process_vacancies():
-    df_currency = pd.read_csv('csv/currency.csv', index_col='date')
-    csv_merged = pd.read_csv('csv/vacancies.csv')
 
-    vacancies_data = convert_and_format_data(csv_merged, df_currency)
-    t = time.time()
-    # Сохранение данных в базу данных
-    with connections['default'].cursor() as cursor:
-        with transaction.atomic():
-            for index, row in vacancies_data.iterrows():
-                print(time.time()-t, index)
-                cursor.execute(
-                """
-                INSERT INTO salary_vac (name, salary_avg, area_name, published_at)
-                VALUES (%s, %s, %s, %s)
-                """,
-                [row['name'], row['salary'], row['area_name'], row['published_at']]
-                )
 

@@ -58,26 +58,6 @@ class OnYear(models.Model):
         verbose_name_plural = "year"
 
 
-# class Filter_Vac(models.Model):
-#     name = models.TextField(null=True, default=None)
-#     key_skills = models.TextField(null=True, default=None)
-#     salary_from = models.IntegerField(null=True, default=None)
-#     salary_to = models.IntegerField(null=True, default=None)
-#     salary_currency = models.CharField(max_length=3, null=True, default=None)
-#     area_name = models.TextField(null=True, default=None)
-#     published_at = models.DateTimeField(null=True, default=None)
-#
-#     def __str__(self):
-#         return f"фулл стек {self.area_name}  {self.published_at}"
-#
-#     class Meta:
-#         db_table = 'Filter_Vac'
-#         verbose_name = "Filter_Vac"
-#         verbose_name_plural = "Filter_Vac"
-#
-#     pass
-
-
 class City(models.Model):
     city = models.TextField(null=True)
     salary = models.FloatField(null=True)
@@ -92,3 +72,31 @@ class City(models.Model):
         db_table = 'City'
         verbose_name = "City"
         verbose_name_plural = "City"
+
+
+class Skills_Vac_Full(models.Model):
+    year = models.CharField(max_length=4,null = True)
+    skill = models.TextField(null = True)
+    count = models.IntegerField(null = True)
+
+    def __str__(self):
+        return f'В {self.year} году был популярен скилл {self.skill} {self.count}'
+
+    class Meta:
+        db_table = 'skills_Full'
+        verbose_name = "Skills_full"
+        verbose_name_plural = "Skills_full"
+
+
+class Skills_MyVac(models.Model):
+    year = models.CharField(max_length=4, null=True)
+    skill = models.TextField(null=True)
+    count = models.IntegerField(null=True)
+
+    def __str__(self):
+        return f'В {self.year} году был популярен скилл {self.skill} {self.count}'
+
+    class Meta:
+        db_table = 'MyVac_skills'
+        verbose_name = "MyVac_skills"
+        verbose_name_plural = "MyVac_skills"

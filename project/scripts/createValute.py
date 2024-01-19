@@ -8,7 +8,6 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 warnings.simplefilter(action='ignore', category=UserWarning)
 warnings.filterwarnings('ignore', message="DateTimeField Valute.date received a naive datetime", category=RuntimeWarning)
 
-
 def main(main_df):
     for dt in rrule.rrule(rrule.MONTHLY, dtstart=datetime(2003, 1, 1), until=datetime(2023, 12, 1)):
         URL = f'http://www.cbr.ru/scripts/XML_daily.asp?date_req=01/{dt.strftime("%m/%Y")}'
@@ -19,8 +18,6 @@ def main(main_df):
         df = df.pivot(index='date', columns='CharCode', values='VunitRate').reset_index()
         main_df = main_df._append(df, ignore_index=True, sort=False)
     return main_df
-
-
 
 def run():
     t = time.time()

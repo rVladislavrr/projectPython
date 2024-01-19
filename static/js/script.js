@@ -16,8 +16,8 @@ document.addEventListener('click', function (event) {
     }
 });
 window.addEventListener('scroll', function () {
-    var additionalContent = document.getElementById('additional-content');
-    var scrollPosition = window.scrollY;
+    let additionalContent = document.getElementById('additional-content');
+    let scrollPosition = window.scrollY;
 
     if (scrollPosition > 100) { // Показать дополнительный контент, когда пользователь прокрутил вниз на 100px
         additionalContent.style.opacity = 1;
@@ -36,3 +36,4 @@ document.getElementById('scrollToTopButton').onclick = function () {
     document.body.scrollTop = 0; // Для поддержки старых браузеров
     document.documentElement.scrollTop = 0; // Для современных браузеров
 };
+

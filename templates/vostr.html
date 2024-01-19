@@ -19,32 +19,30 @@
         <option value="section2">Динамика количества вакансий</option>
         <option value="section3">Динамика зарплат для Fullstack</option>
         <option value="section4">Динамика количества вакансий для Fullstack</option>
+        <option value="all">Все</option>
     </select>
 
 
 
     <section id = 'section1'>
-    <h2 class = 'h2Din'>Динамика зарплат по годам по всем вакансиям</h2>
-    <div style="display: flex; justify-content: center">
-        <img src="{% static 'img/Salar_year1.png' %}" width="640px" height="480px" alt="">
-    </div>
-    <h3 class = 'h2Din'>Табличный вид</h3>
-    <div style="display: flex; justify-content: center; margin-top: 25px;margin-left: 25px;">
-        <table >
-            <tr>
-                <td>Года</td>
-                 {% for i in items %}
-                <td>{{ i.year }}</td>
-                {% endfor %}
-            </tr>
-            <tr>
-            <td>Зарплаты</td>
-                {% for i in items %}
-                <td>{{ i.salary_avg }}</td>
-                {% endfor %}
-            </tr>
-        </table>
-    </div>
+        <h2 class = 'h2Din'>Динамика зарплат по годам по всем вакансиям</h2>
+        <div style="display: flex; justify-content: center">
+            <img src="{% static 'img/Salar_year1.png' %}" width="640px" height="480px" alt="">
+        </div>
+        <h3 class = 'h2Din'>Табличный вид</h3>
+        <div style="display: flex; justify-content: center; margin-top: 25px;margin-left: 25px;">
+            <table >
+                <tr>
+                    <td>Года</td>
+                    {% for i in items %}<td>{{ i.year }}</td>
+                    {% endfor %}
+                </tr>
+                <tr><td>Зарплаты</td>
+                    {% for i in items %}<td>{{ i.salary_avg }}</td>
+                    {% endfor %}
+                </tr>
+            </table>
+        </div>
     </section>
 
 
@@ -64,7 +62,7 @@
                 {% endfor %}
             </tr>
             <tr>
-            <td>Зарплаты</td>
+            <td>Кол-во вакансий</td>
                 {% for i in items %}
                 <td>{{ i.count }}</td>
                 {% endfor %}
@@ -90,7 +88,11 @@
             <tr>
             <td>Зарплаты</td>
                 {% for i in items %}
+                    {% if i.count_vac == 0 %}
+                    <td>-</td>
+                    {% else %}
                 <td>{{ i.salary_avg_for_vac }}</td>
+                    {% endif %}
                 {% endfor %}
             </tr>
         </table>
@@ -112,16 +114,19 @@
                 {% endfor %}
             </tr>
             <tr>
-            <td>Зарплаты</td>
+            <td>Кол-во вакансий</td>
                 {% for i in items %}
-                <td>{{ i.count_vac }}</td>
+                    {% if i.count_vac == 0 %}
+                        <td>-</td>
+                        {% else %}
+                        <td>{{ i.count_vac }}</td>
+                    {% endif %}
                 {% endfor %}
             </tr>
         </table>
     </div>
     </section>
     {% endblock %}
-
 
 {% block script %}
     <script src="{% static 'js/script2.js'%}"></script>

@@ -10,18 +10,18 @@
 </head>
 
 <body>
-    <a href="#" id="scrollToTopButton">&#9650;</a>
+    <a id="scrollToTopButton">&#9650;</a>
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn">&times;</a>
         <a href="{% url 'home' %} ">Главная страница</a>
         <a href="{% url 'vostr' %}">Востребованность</a>
         <a href="{% url 'geo' %}">География</a>
-        <a href="#">Навыки</a>
-        <a href="#">Последние вакансии</a>
+        <a href="{% url 'skills' %}">Навыки</a>
+        <a href="{% url 'new_vac' %}">Последние вакансии</a>
     </div>
     <main id='main'>
+        <span class='openbtn'>&#9776;</span>
         <div style="display: flex;">
-            <span class='openbtn'>&#9776;</span>
             <h1 style="margin: 20px auto; font-size: 35px; border-bottom: 3px solid currentColor;">{% block title %}Заголовок{% endblock %}</h1>
         </div>
     {% block main %}
@@ -59,13 +59,11 @@
             </div>
         </section>
     {% endblock %}
-    {% block last %}
         <div id='last'>
 
             <p class='last'><a href="{% block a %}{% url 'vostr' %}{% endblock %}">{% block aName %}Востребованность{% endblock%} &#10148;</a></p>
 
         </div>
-    {% endblock %}
     </main>
     <footer style="margin-top: 15px">
         <h2 style="margin-left: auto;

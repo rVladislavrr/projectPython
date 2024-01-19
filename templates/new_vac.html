@@ -1,0 +1,40 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}
+    Последние вакансии
+{% endblock %}
+
+{% block main %}
+<div class="container">
+  {% for vc in vac %}
+  <div class="card">
+    <h3>{{ vc.name }}</h3>
+      {%  if vc.salary.from and vc.salary.to %}
+      <p>({{ vc.salary.from }} - {{ vc.salary.to }}) {{ vc.salary.currency }}</p>
+      {% elif vc.salary.from %}
+      <p>От {{ vc.salary.from }} {{ vc.salary.currency }}</p>
+      {% elif vc.salary.to %}
+      <p>До {{ vc.salary.to }} {{ vc.salary.currency }}</p>
+      {% else %}
+      <p>Зарплата отсутствует</p>
+      {% endif %}
+        <p>{{ vc.employer_name }}</p>
+      <p>{{ vc.area_name }}</p>
+  </div>
+  {% empty %}
+  <h2 class='h2Text'>{{ err }}</h2>
+  {% endfor %}
+</div>
+
+
+{% endblock %}
+
+{% block aName %}
+    На главую
+{% endblock %}
+{% block a %}
+    {% url 'home' %}
+{% endblock %}
+{% block script %}
+
+{% endblock %}
