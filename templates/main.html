@@ -5,8 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{% block tit %}FullstackMain{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/icons.png' %}" type="image/png" >
 </head>
 
 <body>
@@ -22,8 +23,8 @@
     <main id='main'>
         <span class='openbtn'>&#9776;</span>
         <div style="display: flex;">
-            <a href="{% url 'home' %}"><img src="{% static 'img/icons.png' %}" width="64px" height="64px" alt="" style="margin-left: 100px ; margin-top: 10px"></a>
             <h1 style="margin: 20px auto; font-size: 35px; border-bottom: 3px solid currentColor;">{% block title %}Statistics Fullstack developer{% endblock %}</h1>
+            <a href="{% url 'home' %}"><img src="{% static 'img/icons.png' %}" width="64px" height="64px" alt="" style=" position: relative; right:100px; top:15px"></a>
         </div>
     {% block main %}
         <h2 class = 'h2Text'>Кто такой Full stack разработчик?</h2>

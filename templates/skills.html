@@ -3,7 +3,7 @@
 {% block title %}
    Навыки
 {% endblock %}
-
+{% block tit %}FullstackSkills{% endblock %}
 {% block a %}
     {% url 'new_vac' %}
 {% endblock %}
@@ -14,7 +14,7 @@
 
 {% block main %}
     <div style = 'margin-top: 25px;margin-left: 100px '>
-    <label for="sectionSelect" style="font-size: 20px; margin-top: 20px; ">Выберите секцию:</label>
+    <label for="sectionSelect" style="font-size: 20px; margin-top: 20px; ">Выберите год:</label>
     <select id="sectionSelect" onChange="showSection()">
         {% for i in items %}
             <option value="{{ i.year }}">{{ i.year }}</option>
