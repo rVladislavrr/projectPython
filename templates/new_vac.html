@@ -1,31 +1,48 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block title %}
-    Последние вакансии
+    Последние вакансии по профессии Fullstack
 {% endblock %}
 
 {% block main %}
 <div class="container">
   {% for vc in vac %}
-  <div class="card">
-    <h3>{{ vc.name }}</h3>
-      {%  if vc.salary.from and vc.salary.to %}
-      <p>({{ vc.salary.from }} - {{ vc.salary.to }}) {{ vc.salary.currency }}</p>
-      {% elif vc.salary.from %}
-      <p>От {{ vc.salary.from }} {{ vc.salary.currency }}</p>
-      {% elif vc.salary.to %}
-      <p>До {{ vc.salary.to }} {{ vc.salary.currency }}</p>
-      {% else %}
-      <p>Зарплата отсутствует</p>
+      <div class="card">
+          <a href="{{ vc.url }}"  target='_blank'><h3>{{ vc.name }} ( ссылка )</h3></a>
+          {%  if vc.salary.from and vc.salary.to %}
+            <p>Зарплата: {{ vc.salary.from }} - {{ vc.salary.to }} ({{ vc.salary.currency }})</p>
+
+          {% elif vc.salary.from %}
+
+            <p>Зарплата: от {{ vc.salary.from }} {{ vc.salary.currency }}</p>
+
+          {% elif vc.salary.to %}
+
+            <p>Зарплата: до {{ vc.salary.to }} {{ vc.salary.currency }}</p>
+
+          {% else %}
+
+             <p>Зарплата отсутствует</p>
+
+          {% endif %}
+
+            <p>Компания: {{ vc.employer_name }}</p>
+          <p>Город: {{ vc.area_name }}</p>
+      <p style="line-height: 160%;">Описание: {{ vc.description }}</p>
+      <p style="line-height: 160%;">Нажмите на имя и прочитайте описание полностью</p>
+      {% if vc.skills %}
+      	<p>Навыки: {{ vc.skills }}</p>
+          {% else %}
+          <p>Навыки не указаны</p>
       {% endif %}
-        <p>{{ vc.employer_name }}</p>
-      <p>{{ vc.area_name }}</p>
-  </div>
+
+      <p style="text-align: right"> Дата публикации: {{ vc.published_at }}</p>
+
+      </div>
   {% empty %}
   <h2 class='h2Text'>{{ err }}</h2>
   {% endfor %}
 </div>
-
 
 {% endblock %}
 

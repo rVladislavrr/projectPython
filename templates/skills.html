@@ -1,5 +1,5 @@
 {% extends 'main.html' %}
-
+{% load static %}
 {% block title %}
    Навыки
 {% endblock %}
@@ -13,25 +13,58 @@
 {% endblock %}
 
 {% block main %}
-    <h1>Для всех</h1>
-    {% for i in items %}
-         <h3>{{ i.year }}</h3>
-            {% for j in i.skills %}
-                <p>{{ j.name  }} {{ j.count }}</p>
-                {% empty %}
-                <p>Empty</p>
-                {% endfor %}
-    {% endfor %}
-    <h1>Для моей</h1>
-    {% for i in items_vac %}
-         <h3>{{ i.year }}</h3>
-            {% for j in i.skills %}
-                <p>{{ j.name  }} {{ j.count }}</p>
-                {% empty %}
-                <p>Empty</p>
-                {% endfor %}
+    <div style = 'margin-top: 25px;margin-left: 100px '>
+    <label for="sectionSelect" style="font-size: 20px; margin-top: 20px; ">Выберите секцию:</label>
+    <select id="sectionSelect" onChange="showSection()">
+        {% for i in items %}
+            <option value="{{ i.year }}">{{ i.year }}</option>
+        {% endfor %}
+        <option value="all" selected>Все</option>
+    </select>
+    </div>
+
+
+    {% for item in items %}
+    <section id = '{{ item.year }}'>
+             <h2 style="text-align: center">Год: {{ item.year }}</h2>
+         <div style="display: flex; justify-content: center">
+             <table>
+                 {% for i in item.skills_full %}
+                         <tr><td style="width: 200px">{{ i.name }}</td><td style="width: 50px">{{ i.count }}</td></tr>
+                     {% endfor %}
+             </table>
+             <div style="margin-left: 100px; ">
+             <img class = 'imgg' src="../static/img/year_skills/{{item.year}}/full.png"  width="800px" height="600px" alt="" >
+                 <p class="text">Топ 20 популярных навыков относительно всех вакансий за {{ item.year }}.
+                 </p>
+                 <p class="text">Слева в таблице показаны точное количество их использований за этот год.
+                 </p>
+             </div>
+         </div>
+        <div style="display: flex; justify-content: center; margin-top: 50px">
+
+             <div style="margin-right: 100px; ">
+             <img class = 'imgg' src="../static/img/year_skills/{{item.year}}/full.png"  width="800px" height="600px" alt="" >
+                 <p class="text">Топ 20 популярных навыков относительно Fullstack разработчиков за {{ item.year }}.
+                 </p>
+                 <p class="text">Справа в таблице показаны точное количество их использований за этот год.
+                 </p>
+             </div>
+             <table>
+                 {% for i in item.skills_vac %}
+                         <tr><td style="width: 200px">{{ i.name }}</td><td  style="width: 50px">{{ i.count }}</td></tr>
+                     {% endfor %}
+             </table>
+         </div>
+    </section>
     {% endfor %}
 
+
+
+
+{% endblock %}
+{% block script %}
+    <script src="{% static 'js/script2.js'%}"></script>
 {% endblock %}
 
 

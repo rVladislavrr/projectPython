@@ -8,8 +8,7 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 
 cxt_new_vac = {
-    'err': 'Либо загружается тогда обновите страницу, либо не загружается тогда вернитесь на первую страницу, '
-           'а потом сюда',
+    'err': 'Загружается, обновите страницу',
 }
 
 
@@ -29,17 +28,22 @@ def reqvest():
         data = response.json()
         vacancies = data.get("items", [])
         result = []
+
         for vacancy in vacancies:
             vacancy_data = {
                 "name": vacancy["name"],
                 "employer_name": vacancy["employer"]["name"],
                 "salary": vacancy.get("salary", ""),
                 "area_name": vacancy["area"]["name"],
-                "published_at": vacancy["published_at"]
+                "published_at": vacancy["published_at"].replace('T', ' ')[:19] + ' (по Мск)',
+                'url': f"https://hh.ru/vacancy/{vacancy["id"]}"
             }
 
             description, skills = get_vacancy_details(vacancy["id"])
-            vacancy_data["description"] = description
+            description_sh = description[: description.find(';' , description.find(';') + 1 )] + '...'
+            description_ds = description[: description.find('.' , description.find('.') + 1 )] + '...'
+
+            vacancy_data["description"] = description_sh if len(description_sh) < len(description_ds) else description_ds
             vacancy_data["skills"] = skills
 
             result.append(vacancy_data)
@@ -95,14 +99,14 @@ def City_year():
     return dict_
 
 
-def render_for_vac(name_object):
+def render_for_vac():
     result = []
 
-    skills_data = name_object.objects.all()
+    skills_Full = Skills_Vac_Full.objects.all()
 
     year_data = {}
 
-    for skill in skills_data:
+    for skill in skills_Full:
         year = skill.year
         skill_name = skill.skill
         quantity = skill.count
@@ -112,8 +116,21 @@ def render_for_vac(name_object):
 
         year_data[year].append({'name': skill_name, 'count': quantity})
 
-    for year, skills in year_data.items():
-        result.append({'year': year, 'skills': skills})
+    year_data_vac = {}
+    skills = Skills_MyVac.objects.all()
+    for skill in skills:
+        year = skill.year
+        skill_name = skill.skill
+        quantity = skill.count
+
+        if year not in year_data_vac:
+            year_data_vac[year] = []
+
+        year_data_vac[year].append({'name': skill_name, 'count': quantity})
+
+    for year, skills, in year_data.items():
+        skills_f = year_data_vac[year]
+        result.append({'year': year, 'skills_full': skills,'skills_vac': skills_f})
     return result
 
 
@@ -134,10 +151,7 @@ def page_3(request):
 
 
 def page_4(request):
-
-    dict_ = {'items': render_for_vac(Skills_Vac_Full),
-             'items_vac': render_for_vac(Skills_MyVac)}
-
+    dict_ = {'items': render_for_vac()}
     return render(request, 'skills.html', context=dict_)
 
 

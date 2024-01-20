@@ -19,7 +19,7 @@
         <option value="section2">Динамика количества вакансий</option>
         <option value="section3">Динамика зарплат для Fullstack</option>
         <option value="section4">Динамика количества вакансий для Fullstack</option>
-        <option value="all">Все</option>
+        <option value="all" selected>Все</option>
     </select>
 
 
@@ -27,7 +27,7 @@
     <section id = 'section1'>
         <h2 class = 'h2Din'>Динамика зарплат по годам по всем вакансиям</h2>
         <div style="display: flex; justify-content: center">
-            <img src="{% static 'img/Salar_year1.png' %}" width="640px" height="480px" alt="">
+            <img class = 'imgg' src="{% static 'img/Salar_year1.png' %}" width="640px" height="480px" alt="">
         </div>
         <h3 class = 'h2Din'>Табличный вид</h3>
         <div style="display: flex; justify-content: center; margin-top: 25px;margin-left: 25px;">
@@ -47,10 +47,10 @@
 
 
 
-     <section id = 'section2' style="display: none">
+     <section id = 'section2' >
     <h2 class = 'h2Din'>Динамика количества вакансий</h2>
     <div style="display: flex; justify-content: center">
-        <img src="{% static 'img/Count_year.png' %}" width="640px" height="480px" alt="">
+        <img  class = 'imgg' src="{% static 'img/Count_year.png' %}" width="640px" height="480px" alt="">
     </div>
     <h3 class = 'h2Din'>Табличный вид</h3>
     <div style="display: flex; justify-content: center; margin-top: 25px;margin-left: 25px;">
@@ -71,10 +71,10 @@
     </div>
     </section>
 
- <section id = 'section3' style="display: none">
+ <section id = 'section3'>
     <h2 class = 'h2Din'>Динамика зарплат для Fullstack разработчика</h2>
     <div style="display: flex; justify-content: center">
-        <img src="{% static 'img/Salary_vac_year1.png' %}" width="640px" height="480px" alt="">
+        <img  class = 'imgg' src="{% static 'img/Salary_vac_year1.png' %}" width="640px" height="480px" alt="">
     </div>
     <h3 class = 'h2Din'>Табличный вид</h3>
     <div style="display: flex; justify-content: center; margin-top: 25px;margin-left: 25px;">
@@ -99,10 +99,10 @@
     </div>
     </section>
 
-    <section id = 'section4' style="display: none">
+    <section id = 'section4' >
     <h2 class = 'h2Din'>Динамика вакансий для Fullstack разработчика</h2>
     <div style="display: flex; justify-content: center">
-        <img src="{% static 'img/Count_vac_year.png' %}" width="640px" height="480px" alt="">
+        <img  class = 'imgg' src="{% static 'img/Count_vac_year.png' %}" width="640px" height="480px" alt="">
     </div>
     <h3 class = 'h2Din'>Табличный вид</h3>
     <div style="display: flex; justify-content: center; margin-top: 25px;margin-left: 25px;">

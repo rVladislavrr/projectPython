@@ -22,7 +22,8 @@
     <main id='main'>
         <span class='openbtn'>&#9776;</span>
         <div style="display: flex;">
-            <h1 style="margin: 20px auto; font-size: 35px; border-bottom: 3px solid currentColor;">{% block title %}Заголовок{% endblock %}</h1>
+            <a href="{% url 'home' %}"><img src="{% static 'img/icons.png' %}" width="64px" height="64px" alt="" style="margin-left: 100px ; margin-top: 10px"></a>
+            <h1 style="margin: 20px auto; font-size: 35px; border-bottom: 3px solid currentColor;">{% block title %}Statistics Fullstack developer{% endblock %}</h1>
         </div>
     {% block main %}
         <h2 class = 'h2Text'>Кто такой Full stack разработчик?</h2>

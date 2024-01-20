@@ -153,28 +153,48 @@ td{
     text-align: center;
 }
 
+.imgg{
+    box-shadow: 0 1px 10px 5px #f1f1f1;
+}
+
+
 .h2Din{
     text-align: center;
     padding: 0 10px 10px;
 }
 
-.container{
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
-    padding: 10px;
-    width: 1300px;
-    flex-wrap: wrap;
-}
-.card{
-    padding: 10px ;
-    width: 200px;
-    margin-right: 20px;
-    border: #f1f1f1 1px solid;
-    margin-bottom: 10px;
-}
-
 .section-geo{
     padding-top: 25px;
     display: flex;
+}
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 100px;
+    margin-left: 100px;
+    column-gap: 20px;
+    row-gap: 20px;
+}
+
+.card{
+    position: relative;
+    width: 600px;
+    border:1px #f1f1f1 solid;
+    flex: 1 1 auto;
+    border-radius: 25px;
+    padding: 20px;
+}
+.card p{
+    font-size: 18px;
+}
+.card h3{
+    font-size: 22px;
+
+}
+.card h3:hover{
+    color: #7a7a7a;
+}
+.card h3:active{
+    color: #7a7a7a;
+    opacity: 0.7;
 }
