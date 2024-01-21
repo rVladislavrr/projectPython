@@ -1,9 +1,9 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block title %}
-    Последние вакансии по профессии Fullstack
+    Последние вакансии по профессии Ful lstack
 {% endblock %}
-{% block tit %}FullstackNew_Vac{% endblock %}
+{% block tit %}Full_stackNew_Vac{% endblock %}
 {% block main %}
 <div class="container">
   {% for vc in vac %}
@@ -29,7 +29,7 @@
             <p>Компания: {{ vc.employer_name }}</p>
           <p>Город: {{ vc.area_name }}</p>
       <p style="line-height: 160%;">Описание: {{ vc.description }}</p>
-      <p style="line-height: 160%;">Нажмите на имя и прочитайте описание полностью</p>
+      <p style="line-height: 160%;">Можете нажать на название вакансии что-бы полностью прочитать описание</p>
       {% if vc.skills %}
       	<p>Навыки: {{ vc.skills }}</p>
           {% else %}

@@ -5,6 +5,7 @@ document.querySelector('.openbtn').onclick = function () {
 
 document.querySelector('.closebtn').onclick = function () {
     document.getElementById("mySidenav").classList.remove('active');
+
 };
 
 document.addEventListener('click', function (event) {

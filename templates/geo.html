@@ -54,7 +54,7 @@
      <div style="display: flex; justify-content: center; margin-top: 25px;margin-left: 150px;">
          <h3 class = 'h2Din' style="text-align: center">Табличный вид: </h3>
          <table>
-            <tr><td>Город</td><td>Доля вак</td></tr>
+            <tr><td>Город</td><td>Доля вакансий</td></tr>
             {% for i in items_count %}
             <tr><td><b>{{ i.city }}</b></td><td>{{ i.count }}</td></tr>
              {% endfor %}
@@ -88,7 +88,7 @@
      <div style="display: flex; justify-content: center; margin-top: 25px;margin-left: 150px;">
          <h3 class = 'h2Din' style="text-align: center">Табличный вид: </h3>
          <table>
-            <tr><td>Город</td><td>Доля вак</td></tr>
+            <tr><td>Город</td><td>Доля вакансий</td></tr>
             {% for i in items_count_vac %}
             <tr><td><b>{{ i.city }}</b></td><td>{{ i.count_vac }}</td></tr>
              {% endfor %}
