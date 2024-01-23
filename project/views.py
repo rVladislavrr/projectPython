@@ -11,6 +11,17 @@ cxt_new_vac = {
     'err': 'Загружается, обновите страницу',
 }
 
+format_RUR = {"AZN": "Манаты",
+"BYR": "Белорусские рубли",
+"EUR": "Евро",
+"GEL": "Грузинский лари",
+"KGS": "Киргизский сом",
+"KZT": "Тенге",
+"RUR": "Рубли",
+"UAH": "Гривны",
+"USD": "Доллары",
+"UZS": "Узбекский сум"}
+
 
 def reqvest():
     def fetch_vacancies():
@@ -21,7 +32,8 @@ def reqvest():
             "text": " OR ".join(keywords),
             "date_from": today.isoformat(),
             "per_page": 10,
-            "order_by": "publication_time"
+            "order_by": "publication_time",
+            'search_field': 'name',
         }
         response = requests.get(url, params=params)
         data = response.json()
@@ -36,8 +48,10 @@ def reqvest():
                 "salary": vacancy.get("salary", ""),
                 "area_name": vacancy["area"]["name"],
                 "published_at": vacancy["published_at"].replace('T', ' ')[:19] + ' (по Мск)',
-                'url': f"https://hh.ru/vacancy/{vacancy["id"]}"
+                'url': vacancy['alternate_url']
             }
+            if vacancy_data['salary']:
+                vacancy_data["salary"]['currency'] = format_RUR[vacancy_data["salary"]['currency']]
             result.append(vacancy_data)
         return result
     vacancies = fetch_vacancies()
@@ -136,26 +150,4 @@ def page_5(request):
     return render(request, 'new_vac.html', context=cxt_new_vac)
 
 
-from django.http import JsonResponse
 
-
-def get_additional_info(request):
-    card_id = request.GET.get('card_id')
-
-    url = f"https://api.hh.ru/vacancies/{card_id}"
-    response = requests.get(url)
-    data = response.json()
-
-    description = remove_html_tags(data.get("description", ""))
-
-    skills = ""
-    if "key_skills" in data and data["key_skills"]:
-        skills = ", ".join([skill["name"] for skill in data["key_skills"]])
-
-    description_sh = description[: description.find(';', description.find(';') + 1)] + '...'
-    description_ds = description[: description.find('.', description.find('.') + 1)] + '...'
-
-    description = description_sh if len(description_sh) < len(description_ds) else description_ds
-    if not skills:
-        skills = 'отсутствуют'
-    return JsonResponse({'des': description, 'skills': skills})

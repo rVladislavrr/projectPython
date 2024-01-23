@@ -25,5 +25,4 @@ urlpatterns = [
     path('geo',page_3,name = 'geo'),
     path('skills',page_4,name = 'skills'),
     path('new_vac',page_5,name = 'new_vac'),
-    path('get_additional_info/', get_additional_info, name='get_additional_info'),
 ]

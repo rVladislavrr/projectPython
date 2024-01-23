@@ -17,11 +17,11 @@
 
             {% elif vc.salary.from %}
 
-              <p>Зарплата: от {{ vc.salary.from }} {{ vc.salary.currency }}</p>
+              <p>Зарплата: от {{ vc.salary.from }} ({{ vc.salary.currency }})</p>
 
             {% elif vc.salary.to %}
 
-              <p>Зарплата: до {{ vc.salary.to }} {{ vc.salary.currency }}</p>
+              <p>Зарплата: до {{ vc.salary.to }} ({{ vc.salary.currency }})</p>
 
             {% else %}
 
@@ -53,36 +53,7 @@
     {% url 'home' %}
 {% endblock %}
 {% block script %}
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-    let toggleButtons = document.querySelectorAll('.toggle-card');
-    toggleButtons.forEach(function(button) {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            let cardContent = this.nextElementSibling;
-            if (cardContent.style.display === 'none') {
-                // Отправка GET-запроса на сервер Django
-                var cardId = this.dataset.cardId; // Предположим, что у кнопки есть атрибут data-card-id с идентификатором карточки
-                fetch('/get_additional_info/?card_id=' + cardId)
-                    .then(response => response.json())
-                    .then(data => {
-                        const cardContent = this.parentElement.querySelector('.card-content');
-                        const desElement = cardContent.querySelector('.description');
-                        const skillsElement = cardContent.querySelector('.skills');
-                        const des = data.des;
-                        const skills = data.skills;
-                        {#// Обновление контента карточки с полученной дополнительной информацией#}
-                        desElement.innerHTML += des;
-                        skillsElement.innerHTML += skills;
-                        cardContent.style.display = 'block';
-                    });
-            } else {
-                cardContent.style.display = 'none';
-            }
-        });
-    });
-});
-</script>
+    <script src = '{% static "js/GetRequestHH.js" %}'></script>
 {% endblock %}
 {% block dopA %}
 <p class='last'><a href="{% url 'skills' %}"><span style="display: inline-block; transform: scaleX(-1);">&#10148;</span> Навыки</a></p>
