@@ -62,9 +62,9 @@
         </section>
     {% endblock %}
         <div id='last'>
-
-            <p class='last'><a href="{% block a %}{% url 'vostr' %}{% endblock %}">{% block aName %}Востребованность{% endblock%} &#10148;</a></p>
-
+        {%  block dopA %}
+        {% endblock %}
+            <p class='last' style="margin-left: auto;"><a href="{% block a %}{% url 'vostr' %}{% endblock %}">{% block aName %}Востребованность{% endblock%} &#10148;</a></p>
         </div>
     </main>
     <footer style="margin-top: 15px">

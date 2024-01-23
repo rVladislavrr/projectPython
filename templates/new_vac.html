@@ -1,43 +1,43 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block title %}
-    Последние вакансии по профессии Ful lstack
+    Последние вакансии по профессии Full stack
 {% endblock %}
 {% block tit %}Full_stackNew_Vac{% endblock %}
 {% block main %}
-<div class="container">
+<div class="container" style=" flex-direction: column;">
   {% for vc in vac %}
-      <div class="card">
-          <a href="{{ vc.url }}"  target='_blank'><h3>{{ vc.name }} ( ссылка )</h3></a>
-          {%  if vc.salary.from and vc.salary.to %}
-            <p>Зарплата: {{ vc.salary.from }} - {{ vc.salary.to }} ({{ vc.salary.currency }})</p>
+      <div class="card" style="flex: 1;">
+{#      href="{{ vc.url }}"  target='_blank'#}
+          <a  class="toggle-card" data-card-id="{{ vc.id }}"><h3>{{ vc.name }}</h3></a>
 
-          {% elif vc.salary.from %}
+       <div class="card-content" style="display: none;">
+            {%  if vc.salary.from and vc.salary.to %}
+              <p>Зарплата: {{ vc.salary.from }} - {{ vc.salary.to }} ({{ vc.salary.currency }})</p>
 
-            <p>Зарплата: от {{ vc.salary.from }} {{ vc.salary.currency }}</p>
+            {% elif vc.salary.from %}
 
-          {% elif vc.salary.to %}
+              <p>Зарплата: от {{ vc.salary.from }} {{ vc.salary.currency }}</p>
 
-            <p>Зарплата: до {{ vc.salary.to }} {{ vc.salary.currency }}</p>
+            {% elif vc.salary.to %}
 
-          {% else %}
+              <p>Зарплата: до {{ vc.salary.to }} {{ vc.salary.currency }}</p>
 
-             <p>Зарплата отсутствует</p>
+            {% else %}
 
-          {% endif %}
+               <p>Зарплата отсутствует</p>
 
-            <p>Компания: {{ vc.employer_name }}</p>
-          <p>Город: {{ vc.area_name }}</p>
-      <p style="line-height: 160%;">Описание: {{ vc.description }}</p>
-      <p style="line-height: 160%;">Можете нажать на название вакансии что-бы полностью прочитать описание</p>
-      {% if vc.skills %}
-      	<p>Навыки: {{ vc.skills }}</p>
-          {% else %}
-          <p>Навыки не указаны</p>
-      {% endif %}
+            {% endif %}
 
-      <p style="text-align: right"> Дата публикации: {{ vc.published_at }}</p>
+              <p>Компания: {{ vc.employer_name }}</p>
+            <p>Город: {{ vc.area_name }}</p>
+        <p class="description" style="line-height: 160%;">Описание: </p>
+        	<p class="skills">Навыки: </p>
 
+           <a href="{{ vc.url }}" target="_blank"  class="url"><p style="line-height: 160%;">Читать подробнее...</p></a>
+
+        <p style="text-align: right"> Дата публикации: {{ vc.published_at }}</p>
+        </div>
       </div>
   {% empty %}
   <h2 class='h2Text'>{{ err }}</h2>
@@ -53,5 +53,38 @@
     {% url 'home' %}
 {% endblock %}
 {% block script %}
-
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    let toggleButtons = document.querySelectorAll('.toggle-card');
+    toggleButtons.forEach(function(button) {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            let cardContent = this.nextElementSibling;
+            if (cardContent.style.display === 'none') {
+                // Отправка GET-запроса на сервер Django
+                var cardId = this.dataset.cardId; // Предположим, что у кнопки есть атрибут data-card-id с идентификатором карточки
+                fetch('/get_additional_info/?card_id=' + cardId)
+                    .then(response => response.json())
+                    .then(data => {
+                        const cardContent = this.parentElement.querySelector('.card-content');
+                        const desElement = cardContent.querySelector('.description');
+                        const skillsElement = cardContent.querySelector('.skills');
+                        const des = data.des;
+                        const skills = data.skills;
+                        {#// Обновление контента карточки с полученной дополнительной информацией#}
+                        desElement.innerHTML += des;
+                        skillsElement.innerHTML += skills;
+                        cardContent.style.display = 'block';
+                    });
+            } else {
+                cardContent.style.display = 'none';
+            }
+        });
+    });
+});
+</script>
 {% endblock %}
+{% block dopA %}
+<p class='last'><a href="{% url 'skills' %}"><span style="display: inline-block; transform: scaleX(-1);">&#10148;</span> Навыки</a></p>
+{% endblock %}
+
