@@ -7,61 +7,49 @@ from .models import OnYear, Skills_MyVac, Skills_Vac_Full,City
 from datetime import datetime
 from bs4 import BeautifulSoup
 
-cxt_new_vac = {
-    'err': 'Загружается, обновите страницу',
-}
 
 format_RUR = {"AZN": "Манаты",
-"BYR": "Белорусские рубли",
-"EUR": "Евро",
-"GEL": "Грузинский лари",
-"KGS": "Киргизский сом",
-"KZT": "Тенге",
-"RUR": "Рубли",
-"UAH": "Гривны",
-"USD": "Доллары",
-"UZS": "Узбекский сум"}
+    "BYR": "Белорусские рубли",
+    "EUR": "Евро",
+    "GEL": "Грузинский лари",
+    "KGS": "Киргизский сом",
+    "KZT": "Тенге",
+    "RUR": "Рубли",
+    "UAH": "Гривны",
+    "USD": "Доллары",
+    "UZS": "Узбекский сум"}
 
 
-def reqvest():
-    def fetch_vacancies():
-        keywords = ['fullstack', 'фулстак', 'фуллтак', 'фуллстэк', 'фулстэк', 'full stack']
-        today = datetime.now().replace(hour=0, minute=0, second=0)
-        url = "https://api.hh.ru/vacancies"
-        params = {
-            "text": " OR ".join(keywords),
-            "date_from": today.isoformat(),
-            "per_page": 10,
-            "order_by": "publication_time",
-            'search_field': 'name',
+def getVac():
+    keywords = ['fullstack', 'фулстак', 'фуллтак', 'фуллстэк', 'фулстэк', 'full stack']
+    today = datetime.now().replace(hour=0, minute=0, second=0)
+    url = "https://api.hh.ru/vacancies"
+    params = {
+        "text": " OR ".join(keywords),
+        "date_from": today.isoformat(),
+        "per_page": 10,
+        "order_by": "publication_time",
+        'search_field': 'name',
+    }
+    response = requests.get(url, params=params)
+    data = response.json()
+    vacancies = data.get("items", [])
+    result = []
+
+    for vacancy in vacancies:
+        vacancy_data = {
+            'id': vacancy["id"],
+            "name": vacancy["name"],
+            "employer_name": vacancy["employer"]["name"],
+            "salary": vacancy.get("salary", ""),
+            "area_name": vacancy["area"]["name"],
+            "published_at": vacancy["published_at"].replace('T', ' ')[:19] + ' (по Мск)',
+            'url': vacancy['alternate_url']
         }
-        response = requests.get(url, params=params)
-        data = response.json()
-        vacancies = data.get("items", [])
-        result = []
-
-        for vacancy in vacancies:
-            vacancy_data = {
-                'id': vacancy["id"],
-                "name": vacancy["name"],
-                "employer_name": vacancy["employer"]["name"],
-                "salary": vacancy.get("salary", ""),
-                "area_name": vacancy["area"]["name"],
-                "published_at": vacancy["published_at"].replace('T', ' ')[:19] + ' (по Мск)',
-                'url': vacancy['alternate_url']
-            }
-            if vacancy_data['salary']:
-                vacancy_data["salary"]['currency'] = format_RUR[vacancy_data["salary"]['currency']]
-            result.append(vacancy_data)
-        return result
-    vacancies = fetch_vacancies()
-    dict_ = {'vac': vacancies}
-    return dict_
-
-def remove_html_tags(text):
-    soup = BeautifulSoup(text, "html.parser")
-    cleaned_text = soup.get_text()
-    return cleaned_text
+        if vacancy_data['salary']:
+            vacancy_data["salary"]['currency'] = format_RUR[vacancy_data["salary"]['currency']]
+        result.append(vacancy_data)
+    return {'vac': result}
 
 
 def year_salar():
@@ -125,8 +113,6 @@ def render_for_vac():
 
 
 def index_page(request):
-    t1 = threading.Thread(target=reqvest)
-    t1.start()
     return render(request, 'main.html')
 
 
@@ -146,8 +132,7 @@ def page_4(request):
 
 
 def page_5(request):
-    cxt_new_vac = reqvest()
-    return render(request, 'new_vac.html', context=cxt_new_vac)
+    return render(request, 'new_vac.html', context=getVac())
 
 
 
